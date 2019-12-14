@@ -1,0 +1,88 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using OnlineSale.Areas.AdminPart.Models.OnlineSaleTable
+@model OnlineSale.Areas.AdminPart.Models.ModelView.FooterView
+
+<div class="row clearfix" style="height:15px"></div>
+<div class="row">
+    @using (Html.BeginForm("AddFooter", "Footer", FormMethod.Post, new { @class = "col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 form-horizontal", autocomplete = "off" }))
+    {
+        <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                @Html.Label("Copyright hissəsi", new { @class = "col-form-label" })
+            </div>
+            <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                @Html.TextBoxFor(m => new { m.Footer.Copyright }.Copyright, new { placeholder = "Copyright", @class = "form-control col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" })
+            </div>
+        </div>
+        <div class="row clearfix" style="height:10px"></div>
+        <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                @Html.Label("Başlıq hissəsi", new { @class = "col-form-label" })
+            </div>
+            <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                @Html.TextBoxFor(m => new { m.Footer.Header }.Header, new { placeholder = "Başlıq hissəsi", @class = "form-control col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" })
+            </div>
+        </div>
+        <div class="row clearfix" style="height:10px"></div>
+        <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                @Html.Label("Kontent hissəsi", new { @class = "col-form-label" })
+            </div>
+            <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                <textarea id="content1" name="Body" class="form-control col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12"></textarea>
+            </div>
+        </div>
+        <div class="row clearfix" style="height:10px"></div>
+        <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                @Html.Label("Aşağı hissəsi", new { @class = "col-form-label" })
+            </div>
+            <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                @Html.TextBoxFor(m => new { m.Footer.Footer }.Footer, new { placeholder = "Aşağı hissəsi", @class = "form-control col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" })
+            </div>
+        </div>
+        <div class="row clearfix" style="height:10px"></div>
+        <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                <input type="submit" value="Təstiqlə" style="margin-bottom:5px" class="btn btn-success form-control col-12" />
+            </div>
+            <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12 font-weight-bold">
+                <input type="reset" value="İnkar et" class="btn btn-danger form-control col-xl-2 col-lg-2 col-md-2 col-12" />
+            </div>
+        </div>
+    }
+</div>
+<div class="row clearfix" style="height:15px"></div>
+<div class="row align-content-center">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <table class="table table-hover border table-responsive-xl table-responsive-lg table-responsive-md table-responsive-sm table-responsive">
+            <thead class="thead-dark">
+                <tr class="text-center">
+                    <th>Copyright</th>
+                    <th>Başlıq hissəsi</th>
+                    <th>Kontent hissəsi</th>
+                    <th>Aşağı hissəsi</th>
+                    <th>Dəyiş</th>
+                    <th>Sil</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (FooterMod footer in Model.FooterList)
+                {
+                    <tr class="text-center" style="vertical-align:middle">
+                        <td style="vertical-align:middle">@footer.Copyright</td>
+                        <td style="vertical-align:middle">@footer.Header</td>
+                        <td style="vertical-align:middle">@footer.Body</td>
+                        <td style="vertical-align:middle">@footer.Footer</td>
+                        <td style="vertical-align:middle"><a href="/AdminPart/Contact/UpdateContact/@footer.Id" class="btn btn-warning form-control">Dəyiş</a></td>
+                        <td style="vertical-align:middle"><a href="/AdminPart/Contact/DeleteContact/@footer.Id" class="btn btn-danger form-control">Sil</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

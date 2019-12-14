@@ -1,0 +1,118 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using OnlineSale.Areas.AdminPart.Models.OnlineSaleTable
+@model OnlineSale.Areas.AdminPart.Models.ModelView.ContactView
+<div class="row clearfix" style="height:15px"></div>
+<div class="row">
+    @using (Html.BeginForm("AddContact", "Contact", FormMethod.Post, new { @class = "col-lg-12", autocomplete = "off" }))
+    {
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 font-weight-bold">
+                <a class="btn-lg btn-sm btn btn-success offset-md-4 col-md-4 offset-md-4 col-sm-12 col-12" id="newSubCat" style="color:white;margin-bottom:5px;cursor:pointer" onclick="subAdd()">Yeni</a>
+            </div>
+        </div>
+        <div class="row" id="subAdd" style="display:none">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                        @Html.Label("Şəhər nömrəsi", new { @class = "col-form-label" })
+                    </div>
+                    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                        @Html.TextAreaFor(m => new { m.Contacts.Number }.Number, new { cols = "5", rows = "5", @class = "form-control col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12", placeholder = "+994(--)--- -- --" })
+                    </div>
+                </div>
+                <div class="row clearfix" style="height:10px"></div>
+                <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                        @Html.Label("Mobil nömrəsi", new { @class = "col-form-label" })
+                    </div>
+                    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                        @Html.TextAreaFor(m => new { m.Contacts.MobNumber }.MobNumber, new { cols = "5", rows = "5", placeholder = "+994(--)--- -- --", @class = "form-control col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" })
+                    </div>
+                </div>
+                <div class="row clearfix" style="height:10px"></div>
+                <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                        @Html.Label("Elektron Poçt", new { @class = "col-form-label" })
+                    </div>
+                    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                        @Html.TextBoxFor(m => new { m.Contacts.Email }.Email, new { type = "email", placeholder = "example:--@----.--", @class = "form-control col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" })
+                    </div>
+                </div>
+                <div class="row clearfix" style="height:10px"></div>
+                <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                        @Html.Label("Ünvan", new { @class = "col-form-label" })
+                    </div>
+                    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                        @Html.TextBoxFor(m => new { m.Contacts.OurAddress }.OurAddress, new {placeholder = "Ünvan:", @class = "form-control col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12", id = "iframeId" })
+                    </div>
+                </div>
+                <div class="row clearfix" style="height:10px"></div>
+                <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                        @Html.Label("Xəritə", new { @class = "col-form-label" })
+                    </div>
+                    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                        <div class="row">
+                            <div class="col-lg-2 font-weight-bold">
+                                @Html.TextBoxFor(m => new { m.Contacts.MapPath }.MapPath, new { type = "url", placeholder = "Xəritə:http://", @class = "form-control", id = "iframeId", onchange = "iframeChange()" })
+                            </div>
+                            <div class="col-lg-10">
+                                <p id="pDemo"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix" style="height:15px"></div>
+                <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-12 font-weight-bold">
+                        <input type="submit" value="Təstiqlə" style="margin-bottom:5px" class="btn-lg btn-sm btn btn-success form-control col-sm-12 col-12" />
+                    </div>
+                    <div class="col-xl-10 col-lg-10 col-md-8 col-sm-12 col-12">
+                        <input type="reset" value="İnkar et" class="btn-lg btn-sm btn btn-danger form-control col-xl-2 col-lg-2 col-md-4 col-sm-12 col-12" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
+<div class="row clearfix" style="height:15px"></div>
+<div class="row align-content-center">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <table class="table table-hover border table-responsive-xl table-responsive-lg table-responsive-md table-responsive-sm table-responsive">
+            <thead class="thead-dark" style="vertical-align:central;text-align:center">
+                <tr class="text-center">
+                    <th>Şəhər nömrəsi</th>
+                    <th>Mobil nömrə</th>
+                    <th>Elektron poçt</th>
+                    <th>Ünvan</th>
+                    <th>Xəritə</th>
+                    <th>Dəyiş</th>
+                    <th>Sil</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int quantity = 0;
+                    foreach (ContactMod contact in Model.ContactList)
+                    {
+                        quantity++;
+                        <tr style="vertical-align:central;text-align:center">
+                            <td style="vertical-align:middle">@contact.Number</td>
+                            <td style="vertical-align:middle">@contact.MobNumber</td>
+                            <td style="vertical-align:middle">@contact.Email</td>
+                            <td style="vertical-align:middle">@contact.OurAddress</td>
+                            <td style="vertical-align:middle">@contact.MapPath</td>
+                            <td style="vertical-align:middle"><a href="/AdminPart/Contact/UpdateContact/@contact.Id" class="btn-lg btn-sm btn btn-warning form-control">Dəyiş</a></td>
+                            <td style="vertical-align:middle"><a data-cmd="/AdminPart/Contact/DeleteContact/@contact.Id" class="btn-lg btn-sm btn btn-danger form-control btnItem" id="deleteBtn" data-toggle="modal" data-target="#myModal" onclick="slctBtn(@quantity)">Sil</a></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

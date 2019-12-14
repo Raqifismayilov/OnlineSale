@@ -1,0 +1,96 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using OnlineSale.Areas.AdminPart.Models.OnlineSaleTable
+@model OnlineSale.Areas.AdminPart.Models.ModelView.UserView
+<div class="row clearfix" style="height:15px;"></div>
+<div class="row">
+    @using (Html.BeginForm("AddUser", "User", FormMethod.Post, new { @class = "col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12", autocomplete = "off" }))
+    {
+        <div class="row hide">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 hide">
+                @Html.HiddenFor(m => new { m.User.Id }.Id)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-12 font-weight-bold">
+                @Html.Label("Adı", new { @class = "col-form-label" })
+            </div>
+            <div class="col-xl-10 col-lg-10 col-md-8 col-sm-12 col-12">
+                @Html.TextBoxFor(m => new { m.User.Firstname }.Firstname, new { @class = "mb-1 form-control col-xl-5 col-lg-5 col-md-7 col-sm-12 col-12" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-12 font-weight-bold">
+                @Html.Label("Soyadı", new { @class = "col-form-label" })
+            </div>
+            <div class="col-xl-10 col-lg-10 col-md-8 col-sm-12 col-12">
+                @Html.TextBoxFor(m => new { m.User.Lastname }.Lastname, new { @class = "mb-1 form-control col-xl-5 col-lg-5 col-md-7 col-sm-12 col-12" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-12 font-weight-bold">
+                @Html.Label("İstifadəçi adı", new { @class = "col-form-label" })
+            </div>
+            <div class="col-xl-10 col-lg-10 col-md-8 col-sm-12 col-12">
+                @Html.TextBoxFor(m => new { m.User.Username }.Username, new { @class = "mb-1 form-control col-xl-5 col-lg-5 col-md-7 col-sm-12 col-12" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-12 font-weight-bold">
+                @Html.Label("Email", new { @class = "col-form-label" })
+            </div>
+            <div class="col-xl-10 col-lg-10 col-md-8 col-sm-12 col-12">
+                @Html.TextBoxFor(m => new { m.User.Email }.Email, new { type = "emial", @class = "mb-1 form-control col-xl-5 col-lg-5 col-md-7 col-sm-12 col-12" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-12 font-weight-bold">
+                @Html.Label("Şifrə", new { @class = "col-form-label" })
+            </div>
+            <div class="col-xl-10 col-lg-10 col-md-8 col-sm-12 col-12">
+                @Html.PasswordFor(m => new { m.User.Password }.Password, new { @class = "mb-1 form-control col-xl-5 col-lg-5 col-md-7 col-sm-12 col-12" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-12 font-weight-bold">
+                @Html.Label("Təkrar şifrə", new { @class = "col-form-label" })
+            </div>
+            <div class="col-xl-10 col-lg-10 col-md-8 col-sm-12 col-12">
+                @Html.PasswordFor(m => new { m.User.Password }.Password, new { @class = "mb-1 form-control col-xl-5 col-lg-5 col-md-7 col-sm-12 col-12" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-12 font-weight-bold">
+                @Html.Label("İstifadəçi rolu", new { @class = "col-form-label" })
+            </div>
+            <div class="col-xl-10 col-lg-10 col-md-8 col-sm-12 col-12">
+                <select class="custom-select mb-2 form-control col-xl-5 col-lg-5 col-md-7 col-sm-12 col-12" name="UserTypeId">
+                    @foreach (var item in Model.UserTypeList)
+                    {
+                        if (Model.User.UserTypeId == item.Id)
+                        {
+                            <option selected value="@item.Id">@item.TypeName</option>
+                            continue;
+                        }
+                        <option value="@item.Id">@item.TypeName</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-12 font-weight-bold">
+                <input type="submit" value="Təsdiqlə" style="margin-bottom:5px" class="btn-lg btn-sm btn btn-success form-control col-12" />
+            </div>
+            <div class="col-xl-10 col-lg-10 col-md-8 col-sm-12 col-12 font-weight-bold">
+              <a href="/AdminPart/User/GetUser" class="btn-lg btn-sm btn btn-danger form-control col-xl-2 col-lg-3 col-md-4 col-sm-12 col-12">İnkar et</a>
+                @*<input type="reset" value="Təmizlə" class="btn-lg btn-sm btn btn-danger form-control col-xl-2 col-lg-3 col-md-4 col-sm-12 col-12" />*@
+            </div>
+        </div>
+    }
+</div>
+<div class="row clearfix" style="height:15px;"></div>
+
+
+

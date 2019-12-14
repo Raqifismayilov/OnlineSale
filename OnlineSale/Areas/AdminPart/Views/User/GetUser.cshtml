@@ -1,0 +1,68 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int itemCount = 0;
+}
+
+@using OnlineSale.Areas.AdminPart.Models.OnlineSaleTable
+@using System.Text;
+@model OnlineSale.Areas.AdminPart.Models.ModelView.UserView
+
+<div class="row clearfix" style="height:10px;color:#ff006e"></div>
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <a href="/AdminPart/User/AddUser" class="btn-lg btn-sm btn btn-primary offset-md-4 col-md-4 offset-md-4 col-sm-12 col-12">Yeni İstifadəçi</a>
+    </div>
+</div>
+<div class="row clearfix" style="height:10px"></div>
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <table class="table border table-hover table-responsive-sm">
+            <thead class="thead-dark" style="vertical-align:central;text-align:center">
+                <tr>
+                    <th>Adı</th>
+                    <th>Soyadı</th>
+                    <th>İstifadəçi</th>
+                    <th>Email</th>
+                    <th>Şifrəsi</th>
+                    <th>İstifadəçi rolu</th>
+                    <th>Dəyiş</th>
+                    <th>Sil</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int quantity = 0;
+                    string result;
+                    foreach (UserMod user in Model.UserList)
+                    {
+                        quantity++;
+                        result = Convert.ToBase64String(user.Hid);
+                        <tr style="vertical-align:middle;text-align:center">
+                            <td class="font-weight-bold text-capitalize" style="vertical-align:central">@user.Firstname</td>
+                            <td class="font-weight-bold text-capitalize" style="vertical-align:central">@user.Lastname</td>
+                            <td class="font-weight-bold text-capitalize" style="vertical-align:central;color:red">@user.Username</td>
+                            <td class="font-weight-bold" style="vertical-align:central">@user.Email</td>
+                            <td class="font-weight-bold text-capitalize" style="vertical-align:central"><span class="badge badge-warning">******</span></td>
+                            @foreach (UserType userType in Model.UserTypeList)
+                            {
+                                if (user.UserTypeId == userType.Id)
+                                {
+                                    <td class="font-weight-bold text-capitalize" style="vertical-align:central">@userType.TypeName</td>
+                                }
+                            }
+                            <td class="font-weight-bold" style="vertical-align:middle">
+                                <div class="btn-group-lg btn-group-sm btn-group">
+                                    <a href="/AdminPart/User/UpdateUser?param=@result" class="btn-lg btn-sm btn btn-warning">Dəyiş</a>
+                                    <a href="/AdminPart/User/UpdateUser?param=@result" class="btn-lg btn-sm btn btn-secondary">Şifrə sıfırlama</a>
+                                </div>
+                            </td>
+                            <td style="vertical-align:middle"><a href="#" data-cmd='/AdminPart/User/DeleteUser?param=@result' class="btn-lg btn-sm btn btn-danger form-control btnItem" id="deleteBtn" data-toggle="modal" data-target="#myModal" onclick="slctBtn(@quantity)">Sil</a></td>
+                        </tr>
+                    }
+                    itemCount = quantity;
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

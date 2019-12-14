@@ -1,0 +1,260 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using OnlineSale.Areas.AdminPart.Models.OnlineSaleTable
+@using System.IO
+@model OnlineSale.Areas.AdminPart.Models.ModelView.StockView
+
+<div class="row clearfix" style="height:15px"></div>
+@using (Html.BeginForm("AddAnbar", "Anbar", FormMethod.Post, new { enctype = "multipart/form-data", @class = "col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" }))
+{
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="row hide">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    @Html.HiddenFor(m => new { m.Stock.Id }.Id, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                    @Html.Label("Məhsulun adı", new { @class = "col-form-label" })
+                </div>
+                <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                    <div class="row">
+                        @Html.TextBoxFor(m => new { m.Stock.ProductName }.ProductName, new { placeholder = "--Seçin--", @class = "col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-control" })
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="height:10px;"></div>
+            <div class="row">
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                    @Html.Label("Şirkətin adı", new { @class = "col-form-label" })
+                </div>
+                <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                    <div class="row">
+                        <select class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-control" name="AnbarSubPrdSelect">
+                            <option value="0" selected disabled>--Seçin--</option>
+                            @foreach (var item in Model.prdSubCategorylist)
+                            {
+                                if (Model.Stock.Id == 0)
+                                {
+                                    <option value="@item.Id">@item.SubPrdName</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Id">@item.SubPrdName</option>
+                                    if (Model.Stock.SubProductCategoryId == item.Id)
+                                    {
+                                        <option selected value="@item.Id">@item.SubPrdName</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row clearfix" style="height:10px;"></div>
+            <div class="row">
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                    @Html.Label("Məhsulun rəngi", new { @class = "col-form-label" })
+                </div>
+                <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                    <div class="row">
+                        <select id="colorSel" class="col-xl-5 col-lg-5 col-md-5 col-sm-12 col-12 form-control" name="AnbarColorSelect"
+                                style="background-color:@Model.Stock.SubColorId" onchange="colorChange()">
+                            <option value="0" selected disabled>--Seçin--</option>
+                            @foreach (var item in Model.ColorList)
+                            {
+                                if (Model.Stock.Id == 0)
+                                {
+                                    <option style="background-color:@item.ColorsCode" value="@item.Id">@item.ColorsCode</option>
+                                }
+                                else
+                                {
+                                    <option style="background-color:@item.ColorsCode" value="@item.Id">@item.ColorsCode</option>
+                                    if (Model.Stock.SubColorId == item.Id)
+                                    {
+                                        <option value="@item.Id" selected style="background-color:@item.ColorsCode">@item.ColorsCode</option>
+                                    }
+                                }
+                            }
+                        </select>
+                        <p class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 col-form-label" style="margin:2px" id="demo">Seçilməyib</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row clearfix" style="height:10px;"></div>
+            <div class="row">
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                    @Html.Label("Əsas şəkil")
+                </div>
+                <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                    <div class="row">
+                        <input type="file" value="@Model.Stock.MainPhotoPath" name="AnbarUploadFile" accept="image/*" class="form-control-file col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 border" id="customFileLang">
+                    </div>
+                </div>
+            </div>
+            <div class="row clearfix" style="height:10px;"></div>
+            <div class="row">
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                    @Html.Label("Qiyməti")
+                </div>
+                <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                    <div class="row">
+                        @{
+                            int idResult = Model.Stock.Id;
+                            if (idResult == 0)
+                            {
+                                @Html.TextBoxFor(m => new { m.Stock.Price }.Price, new { type = "number", step = "0.01", min = "0", max = "5000", placeholder = "min:0-max:5000", @class = "form-control col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12" })
+                            }
+                            else
+                            {
+                                string Price = Model.Stock.Price.ToString().Replace(',', '.');
+                                @Html.TextBoxFor(m => Price, new { type = "number", step = "0.01", min = "0", max = "5000", placeholder = "min:0-max:5000", @class = "form-control col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12" })
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="row clearfix" style="height:10px;"></div>
+            <div class="row">
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                    @Html.Label("Valyuta növü")
+                </div>
+                <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                    <div class="row">
+                        <select class="form-control col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12" name="AnbarValutaSelect">
+                            <option disabled selected value="0">-Seçin-</option>
+                            @foreach (var item in Model.ValutaList)
+                            {
+                                if (Model.Stock.Id == 0)
+                                {
+                                    <option value="@item.Id">@item.ValutaType</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Id">@item.ValutaType</option>
+                                    if (Model.Stock.SubValutaId == item.Id)
+                                    {
+                                        <option selected value="@item.Id">@item.ValutaType</option>
+                                        break;
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row clearfix" style="height:10px;"></div>
+            <div class="row">
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                    @Html.Label("Ədəd", new { @class = "col-form-label" })
+                </div>
+                <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                    <div class="row">
+                        @Html.TextBoxFor(m => new { m.Stock.Quantity }.Quantity, new { type = "number", min = "0", max = "1000", placeholder = "min:0-max:1000", @class = "form-control col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12" })
+                    </div>
+                </div>
+            </div>
+            <div class="row clearfix" style="height:10px;"></div>
+            <div class="row">
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                    @Html.Label("Endirim", new { @class = "col-form-label" })
+                </div>
+                <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                    <div class="row">
+                        @{
+                            int idResult1 = Model.Stock.Id;
+                            if (idResult1 == 0)
+                            {
+                                @Html.TextBoxFor(m => new { m.Stock.Endirim }.Endirim, new { type = "number", step = "0.1", min = "0", @class = "col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-control" })
+                            }
+                            else
+                            {
+                                string Endirim = Model.Stock.Endirim.ToString().Replace(',', '.');
+                                @Html.TextBoxFor(m => Endirim, new { type = "number", step = "0.1", min = "0", @class = "col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-control" })
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="row clearfix" style="height:10px;"></div>
+            <div class="row">
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                    @Html.Label("Endirim növü", new { @class = "col-form-label" })
+                </div>
+                <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                    <div class="row">
+                        <select class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-control" name="AnbarEndirimSelect">
+                            <option value="0" selected disabled>-Seçin-</option>
+                            @foreach (var item in Model.EndrimList)
+                            {
+                                if (Model.Stock.Id == 0)
+                                {
+                                    <option value="@item.Id">@item.EndrimType</option>}
+                                else
+                                {
+                                    <option value="@item.Id">@item.EndrimType</option>
+                                    if (Model.Stock.SubEndirimId == item.Id)
+                                    {
+                                        <option selected value="@item.Id">@item.EndrimType</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row clearfix" style="height:10px;"></div>
+            <div class="row">
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                    @Html.Label("Sıra sayı", new { @class = "col-form-label" })
+                </div>
+                <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                    <div class="row">
+                        @Html.TextBoxFor(m => new { m.Stock.RowsNumber }.RowsNumber, new { type = "number", min = "0", @class = "form-control col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12" })
+                    </div>
+                </div>
+            </div>
+            <div class="row clearfix" style="height:10px;"></div>
+            <div class="row">
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                    @Html.Label("Məhsulun vəziyyəti", new { @class = "col-form-label" })
+                </div>
+                <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                    <div class="row">
+                        <select class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 form-control" name="ProductCondition">
+                            <option value="1">Yeni</option>
+                            <option value="0">İşlənmiş</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row clearfix" style="height:10px;"></div>
+            <div class="row">
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                    @Html.Label("Məhsulun kodu", new { @class = "col-form-label" })
+                </div>
+                <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                    <div class="row">
+                        @Html.TextBoxFor(m => new { m.Stock.ProductCode }.ProductCode, new { @class = "form-control col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12" })
+                    </div>
+                </div>
+            </div>
+            <div class="row clearfix" style="height:10px;"></div>
+            <div class="row">
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12">
+                    <input type="submit" value="Təsdiqlə" style="margin-bottom:5px" class="btn-lg btn-sm btn btn-success col-sm-12 col-12 form-control" />
+                </div>
+                <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                    <div class="row">
+                        <a href="/AdminPart/Anbar/GetAnbar" class="btn-lg btn-sm btn btn-danger col-xl-2 col-lg-2 col-md-4 col-sm-12 col-12 form-control">Ləğv et</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row clearfix" style="height:10px;"></div>
+        </div>
+    </div>
+}
+

@@ -1,0 +1,100 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using OnlineSale.Areas.AdminPart.Models.OnlineSaleTable
+@model OnlineSale.Areas.AdminPart.Models.ModelView.StockView
+
+
+<div class="row clearfix" style="height:10px"></div>
+@using (Html.BeginForm("SubImageAdd", "Anbar", FormMethod.Post, new { enctype = "multipart/form-data",@class="row" }))
+{
+<div class="col-xl-12 col-lg-12 col-md-12">
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            @Html.HiddenFor(m => new { m.Slide.StockId }.StockId)
+            <h1>@Model.Slide.ProductName</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h2>Ümumi bu məhsul üzrə alt şəkili sayı: @Model.SubImageCount</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2">
+            <label class="uploadLabel">Alt şəkil</label>
+        </div>
+        <div class="col-lg-2">
+            @Html.TextBoxFor(m => new { m.Slide.PhotoPath }.PhotoPath, new { type = "file", @class = "form-control" })
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2">
+            <label>Sıra sayı</label>
+        </div>
+        <div class="col-lg-2">
+            @Html.TextBoxFor(m => new { m.Slide.RowsNumber }.RowsNumber, new { type = "number" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2">
+            <input type="submit" class="btn btn-primary form-control" />
+        </div>
+        <div class="col-lg-2">
+            <a href="/AdminPart/Anbar/GetAnbar" class="btn btn-secondary form-control">Qeriyə</a>
+        </div>
+    </div>
+</div>
+
+
+
+    <div class="row clearfix" style="height:15px"></div>
+    <div class="row align-content-center">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <table class="table table-responsive-lg table-responsive-sm border table-hover">
+                <caption>Hazırda mövcüd olan mallar</caption>
+                <thead class="thead-dark">
+                    <tr style="text-align:center">
+                        <th scope="col">Malın adı</th>
+                        <th scope="col">Kategoriyası</th>
+                        <th scope="col">Alt Kategoriyası</th>
+                        <th scope="col">Alt Şəkil</th>
+                        <th scope="col">Malın S\S</th>
+                        <th scope="col">Dəyiş</th>
+                        <th scope="col">Sil</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (SlideMod slideItem in Model.SlideList)
+                    {
+                        <tr>
+                            <td style="text-align:center"><strong>@slideItem.ProductName</strong></td>
+                            @foreach (ProductCategory prd in Model.PrdCategory)
+                            {
+                                if (prd.Id == slideItem.ProductId)
+                                {
+                                    <td style="text-align:center">@prd.ProductName</td>
+                                    break;
+                                }
+                            }
+                            @foreach (ProductSubCategory item in Model.prdSubCategorylist)
+                            {
+                                if (item.Id == slideItem.SubProductId)
+                                {
+                                    <td style="text-align:center">@item.SubPrdName</td>
+                                    break;
+                                }
+                            }
+                            <td style="text-align:center">@slideItem.PhotoPath</td>
+                            <td style="text-align:center">@slideItem.RowsNumber</td>
+                            <td style="text-align:center"><a href="/AdminPart/Anbar/SubImageUpdate/@slideItem.Id" class="btn btn-success">Dəyiş</a></td>
+                            <td style="text-align:center"><a href="/AdminPart/Anbar/DeleteAnbar/@slideItem.Id" class="btn btn-danger">Sil</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}

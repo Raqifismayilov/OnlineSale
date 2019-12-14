@@ -1,0 +1,124 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using OnlineSale.Areas.AdminPart.Models.OnlineSaleTable
+@model OnlineSale.Areas.AdminPart.Models.ModelView.AdminListView
+
+<div class="row clearfix" style="height:15px"></div>
+<div class="row">
+    @using (Html.BeginForm("AddCategory", "AdminPanel", FormMethod.Post, new { enctype = "multipart/form-data", @class = "col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12", autocomplete = "off" }))
+    {
+        <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                @Html.Label("Kategoriya", new { @class = "col-form-label" })
+            </div>
+            <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                @Html.TextBoxFor(m => new { m.LeftAdminPanel.AdminCategory }.AdminCategory, new { @class = "form-control col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" })
+            </div>
+        </div>
+        <div class="row clearfix" style="height:10px;"></div>
+        <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                @Html.Label("Kategoriya yolu", new { @class = "col-form-label" })
+            </div>
+            <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                @Html.TextBoxFor(m => new { m.LeftAdminPanel.CategoryPath }.CategoryPath, new { @class = "form-control col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" })
+            </div>
+        </div>
+        <div class="row clearfix" style="height:10px;"></div>
+        <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                @Html.Label("Şəkil", new { @class = "col-form-label" })
+            </div>
+            <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                @Html.TextBoxFor(m => new { m.LeftAdminPanel.LogoPath }.LogoPath, new { type = "file", @class = "form-control col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" })
+            </div>
+        </div>
+        <div class="row clearfix" style="height:10px;"></div>
+        <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                @Html.Label("Kategpriya status", new { @class = "col-form-label" })
+            </div>
+            <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                <select name="AdminUsert" class="form-control col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    @if (Model.LeftAdminPanel.Id == 0)
+                    {
+                        <option value="false">User part</option>
+                        <option value="true">Admin part</option>
+                    }
+                    else
+                    {
+                        if (Model.LeftAdminPanel.AdminUsert == true)
+                        {
+                            <option value="false">User part</option>
+                            <option selected value="true">Admin part</option>
+                        }
+                        else
+                        {
+                            <option selected value="false">User part</option>
+                            <option value="true">Admin Part</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="row clearfix" style="height:10px;"></div>
+        <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                @Html.Label("Sıra sayı", new { @class = "col-form-label" })
+            </div>
+            <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                @Html.TextBoxFor(m => new { m.LeftAdminPanel.RowsNum }.RowsNum, new { type = "number", @class = "form-control col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" })
+            </div>
+        </div>
+        <div class="row clearfix" style="height:10px;"></div>
+        <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                <input type="submit" value="Təsdiqlə" style="margin-bottom:5px" class="btn btn-success form-control col-12" />
+            </div>
+            <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12 font-weight-bold">
+                <a href="/AdminPart/AdminPanel/GetAdminPanel" class="btn btn-danger form-control col-xl-2 col-lg-2 col-md-2 col-12">Inkar et</a>
+            </div>
+        </div>
+    }
+</div>
+<div class="row clearfix" style="height:15px"></div>
+<div class="row align-content-center">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <table class="table table-hover border">
+            <thead class="thead-dark">
+                <tr class="text-center" style="vertical-align:middle">
+                    <th>Kategoriya</th>
+                    <th>Kategoriyanin yolu</th>
+                    <th>Şəkil</th>
+                    <th>Admin/User</th>
+                    <th>Sıra sayı</th>
+                    <th>Dəyiş</th>
+                    <th>Sil</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (AdminPanel item in Model.AdminPanel)
+                {
+                    <tr class="text-center" style="vertical-align:middle">
+                        <td style="vertical-align:middle">@item.AdminCategory</td>
+                        <td style="vertical-align:middle">@item.CategoryPath</td>
+                        <td style="vertical-align:middle"><img src="~/Content/LogoImage/@item.LogoPath" /></td>
+                        @if (item.AdminUsert == true)
+                        {
+                            <td style="vertical-align:middle">Admin</td>
+                        }
+                        else
+                        {
+                            <td style="vertical-align:middle">User</td>
+                        }
+                        <td style="vertical-align:middle">@item.RowsNum</td>
+                        <td style="vertical-align:middle"><a href="/AdminPart/AdminPanel/UpdateCategory/@item.Id" class="btn btn-warning form-control">Dəyiş</a></td>
+                        <td style="vertical-align:middle"><a href="/AdminPart/AdminPanel/DeleteCategory/@item.Id" class="btn btn-danger form-control">Sil</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

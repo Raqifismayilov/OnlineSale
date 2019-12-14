@@ -1,0 +1,71 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using OnlineSale.Areas.AdminPart.Models.OnlineSaleTable
+@model OnlineSale.Areas.AdminPart.Models.ModelView.ProductView
+<div class="row clearfix" style="height:15px;"></div>
+<div class="row">
+    @using (Html.BeginForm("AddProduct", "Product", FormMethod.Post, new { @class = "col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 form-horizontal" }))
+    {
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 font-weight-bold">
+                <a class="btn-lg btn-sm btn btn-success offset-md-4 col-md-4 offset-md-4 col-sm-12 col-12" id="newSubCat" style="color:white;margin-bottom:5px;cursor:pointer" onclick="subAdd()">Yeni</a>
+            </div>
+        </div>
+        <div class="row" id="subAdd" style="display:@ViewBag.Text )">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="row hide">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 hide">
+                        @Html.HiddenFor(m => new { m.ProductCategory }.ProductCategory.Id)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                        @Html.Label("Mallar kategoriya", new { @class = "col-form-label" })
+                    </div>
+                    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                        @Html.TextBoxFor(m => new { m.ProductCategory }.ProductCategory.ProductName, new { @class = "form-control col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" })
+                    </div>
+                </div>
+                <div class="row clearfix" style="height:10px;"></div>
+                <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-12 font-weight-bold">
+                        <input type="submit" value="Təsdiqlə" style="margin-bottom:5px" class="btn-lg btn-sm btn btn-success form-control col-sm-12 col-12" />
+                    </div>
+                    <div class="col-xl-10 col-lg-10 col-md-8 col-sm-12 col-12">
+                        <input type="reset" value="Təmizlə" class="btn-lg btn-sm btn btn-danger form-control col-xl-2 col-lg-2 col-md-4 col-sm-12 col-12" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div class="row clearfix" style="height:10px"></div>
+<div class="row align-content-center">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <table class="table table-responsive-lg table-responsive-sm border table-hover">
+            <thead class="thead-dark">
+                <tr class="text-center" style="vertical-align:middle">
+                    <th>Mallar Kategoriya</th>
+                    <th>Dəyiş</th>
+                    <th>Sil</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int quantity = 0;
+                    foreach (ProductCategory item in Model.ProductsCategory)
+                    {
+                        quantity++;
+                        <tr class="text-center font-weight-bold" style="vertical-align:middle">
+                            <td>@item.ProductName</td>
+                            <td><a href="/AdminPart/Product/UpdateProduct/@item.Id" class="btn-lg btn-sm btn btn-warning col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 form-control" onclick="openEditBtn();">Dəyiş</a></td>
+                            <td><a data-cmd='/AdminPart/Product/DeleteProduct/@item.Id' class="btn-lg btn-sm btn btn-danger col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 form-control btnItem" id="deleteBtn" data-toggle="modal" data-target="#myModal" onclick="slctBtn(@quantity)">Sil</a></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

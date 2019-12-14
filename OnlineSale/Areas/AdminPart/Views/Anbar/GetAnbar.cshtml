@@ -1,0 +1,160 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using OnlineSale.Areas.AdminPart.Models.OnlineSaleTable
+@model OnlineSale.Areas.AdminPart.Models.ModelView.StockView
+
+<form action="/AdminPart/Anbar/SearchInAnbar" method="get">
+    <div class="row clearfix" style="height:10px;color:#ff006e"></div>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <a href="/AdminPart/Anbar/AddAnbar" style="margin-bottom:5px" class="btn-lg btn-sm btn btn-secondary form-control">Yeni</a>
+        </div>
+    </div>
+    <div class="row clearfix" style="height:5px"></div>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="btn-group">
+                <input type="text" name="product" class="form-control col-12" />
+                <input type="submit" value="Axtar" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+    <div>
+        @{
+            int quantity = Model.StockList.Count;
+            if (quantity == 0)
+            {
+                <label>Məlumat tapılmadı</label>
+            }
+        }
+    </div>
+    <div class="row clearfix" style="height:10px;"></div>
+    <div class="row align-content-center">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <table class="table table-responsive-lg table-responsive-sm border table-hover">
+                <caption>Hazırda mövcüd olan mallar</caption>
+                <thead class="thead-dark">
+                    <tr style="text-align:center">
+                        <th scope="col" title="Kategoriya"><img style="height:40px;width:40px" src="~/Content/LogoImage/category.png" /></th>
+                        <th scope="col"><img style="height:40px;width:40px" src="~/Content/LogoImage/subcategory.png" /></th>
+                        <th scope="col"><img style="height:40px;width:40px" src="~/Content/LogoImage/Product.png" /></th>
+                        <th scope="col"><img style="height:40px;width:40px" src="~/Content/LogoImage/palitra.png" /></th>
+                        <th scope="col"><img style="height:40px;width:40px" src="~/Content/LogoImage/mainimage.png" /></th>
+                        <th scope="col"><img style="height:40px;width:40px" src="~/Content/LogoImage/coast.png" /> </th>
+                        <th scope="col"><img style="height:40px;width:40px" src="~/Content/LogoImage/valuta.png" /></th>
+                        <th scope="col"><img style="height:40px;width:40px" src="~/Content/LogoImage/count.png" /></th>
+                        <th scope="col"><img style="height:40px;width:40px" src="~/Content/LogoImage/discount1.png" /></th>
+                        <th scope="col"><img style="height:40px;width:40px" src="~/Content/LogoImage/discount.png" /></th>
+                        <th scope="col"><img style="height:40px;width:40px" src="~/Content/LogoImage/rowsnumbers.png" /></th>
+                        <th scope="col">Məhsulun vəziyyəti</th>
+                        <th scope="col">Məhsulun kodu</th>
+                        <th scope="col"><img style="height:40px;width:40px" src="~/Content/LogoImage/details.png" /></th>
+                        <th scope="col"><img style="height:40px;width:40px" src="~/Content/LogoImage/upload1.png" /></th>
+                        <th scope="col"><img style="height:40px;width:40px" src="~/Content/LogoImage/edit.png" /></th>
+                        <th scope="col"><img style="height:40px;width:40px" src="~/Content/LogoImage/delete.png" /></th>
+                    </tr>
+                </thead>
+                <tbody style="vertical-align:middle">
+                    @{
+                        int quantity1 = 0;
+                        foreach (Stock stc in Model.StockList)
+                        {
+                            quantity1++;
+                            <tr>
+                                @foreach (ProductCategory item in Model.PrdCategory)
+                                {
+                                    if (item.Id == stc.ProductId)
+                                    {
+                                        <td style="text-align:center;vertical-align:middle">@item.ProductName</td>
+                                        break;
+                                    }
+                                }
+                                @foreach (ProductSubCategory item in Model.prdSubCategorylist)
+                                {
+                                    if (item.Id == stc.SubProductCategoryId)
+                                    {
+                                        <td style="text-align:center;vertical-align:middle">@item.SubPrdName</td>
+                                        break;
+                                    }
+                                }
+                                <td style="text-align:center;vertical-align:middle"><strong>@stc.ProductName</strong></td>
+                                @foreach (SubColor item in Model.ColorList)
+                                {
+                                    if (item.Id == stc.SubColorId)
+                                    {
+                                        <td style="text-align:center;vertical-align:middle">
+                                            <div style="width:40px;height:40px;border-radius:15px;box-shadow:2px 2px 2px silver;background-color:@item.ColorsCode"></div>
+                                        </td>
+                                        break;
+                                    }
+                                }
+                                <td style="text-align:center;vertical-align:middle">@stc.MainPhotoPath</td>
+                                <td style="text-align:center;vertical-align:middle">@stc.Price</td>
+                                @foreach (SubValuta item in Model.ValutaList)
+                                {
+                                    if (item.Id == stc.SubValutaId)
+                                    {
+                                        <td style="text-align:center;vertical-align:middle">@item.ValutaType</td>
+                                        break;
+                                    }
+                                }
+                                <td style="text-align:center;vertical-align:middle">@stc.Quantity</td>
+                                <td style="text-align:center;vertical-align:middle">@stc.Endirim</td>
+                                @foreach (SubEndrim item in Model.EndrimList)
+                                {
+                                    if (item.Id == stc.SubEndirimId)
+                                    {
+                                        <td style="text-align:center;vertical-align:middle">@item.EndrimType</td>
+                                        break;
+                                    }
+                                    if (stc.SubEndirimId == null)
+                                    {
+                                        <td style="text-align:center;vertical-align:middle"><span style="padding:5px;background-color:red;color:white">seçilməyib</span></td>
+                                        break;
+                                    }
+                                }
+                                <td style="text-align:center;vertical-align:middle"><span style="padding:5px;background-color:#ff6a00;color:white">@stc.RowsNumber</span></td>
+                                @if (stc.ProductCondition == true)
+                                {
+                                    <td style="text-align:center;vertical-align:middle;font-weight:bold">Yeni</td>
+                                }
+                                else
+                                {
+                                    <td style="text-align:center;vertical-align:middle;font-weight:bold">İşlənmiş</td>
+                                }
+                                <td style="text-align:center;vertical-align:middle;font-weight:bold">@stc.ProductCode</td>
+                                <td style="text-align:center;vertical-align:middle"><a href="/AdminPart/Anbar/GetDetail/@stc.Id" class="btn btn-info">Xüsusiyyət</a></td>
+                                <td style="text-align:center;vertical-align:middle"><a href="/AdminPart/Anbar/SubImage?stockId=@stc.Id" class="btn btn-info">Alt şəkil</a></td>
+                                <td style="text-align:center;vertical-align:middle"><a href="/AdminPart/Anbar/UpdateAnbar/@stc.Id" class="btn btn-warning">Dəyiş</a></td>
+                                <td style="text-align:center;vertical-align:middle"><a href="/AdminPart/Anbar/DeleteAnbar/@stc.Id" class="btn btn-danger form-control btnItem" id="deleteBtn">Sil</a></td>
+                            </tr>
+                        }}
+                </tbody>
+                <tfoot class="bg-light text-lg-center">
+                    <tr>
+                        <th scope="col">Kategoriya</th>
+                        <th scope="col">Alt kategoriya</th>
+                        <th scope="col">Malın adı</th>
+                        <th scope="col">Rəngi</th>
+                        <th scope="col">Əsas şəkili</th>
+                        <th scope="col">Qiyməti</th>
+                        <th scope="col">Valyutası</th>
+                        <th scope="col">Ədədi</th>
+                        <th scope="col">Endirim</th>
+                        <th scope="col">Endirim növü</th>
+                        <th scope="col">S/S</th>
+                        <th scope="col">Məhsulun vəziyyəti</th>
+                        <th scope="col">Məhsulun kodu</th>
+                        <th scope="col">Xüsusiyyət</th>
+                        <th scope="col">Alt şəkil</th>
+                        <th scope="col">Dəyiş</th>
+                        <th scope="col">Sil</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</form>
+

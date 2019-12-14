@@ -1,0 +1,243 @@
+﻿body {
+}
+
+.full-div {
+    margin-top: -40px;
+    width: 1300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.navbar-div {
+    float: left;
+    width: 100%;
+    height: auto;
+    background-color: #5e4d8a;
+    margin-top: 5px;
+    margin-bottom: 3px;
+}
+
+    .navbar-div .admin-a {
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-bottom: 5px;
+        padding-top: 7px;
+        float: left;
+    }
+
+        .navbar-div .admin-a:link, .navbar-div .admin-a:visited, .navbar-div:active {
+            color: white;
+            text-decoration: none;
+        }
+
+        .navbar-div .admin-a:hover {
+            background-color: #341d6f;
+            -webkit-box-shadow: 0px 0px 6px -2px rgba(0,0,0,0.99);
+            -moz-box-shadow: 0px 0px 6px -2px rgba(0,0,0,0.99);
+            box-shadow: 0px 0px 6px -2px rgba(0,0,0,0.99);
+        }
+
+.header-bar {
+    float: left;
+    width: 100%;
+    background-color: aliceblue;
+}
+
+    .header-bar .header-sp {
+        color: red;
+        font-weight: bold;
+    }
+
+.menu-bar {
+    float: left;
+    width: 100%;
+    background-color: #5e4d8a;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    min-height: 50px;
+    z-index: 1;
+    font-family: Tahoma;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+.cls-anc {
+    width: 100%;
+    height: auto;
+}
+
+.menubar-ul {
+    text-decoration: none;
+    position: absolute;
+    width: 100%;
+}
+
+    .menubar-ul .cls:hover {
+        background-color: red;
+        -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+        box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    }
+
+.main-li {
+    position: absolute;
+}
+
+.cls {
+    list-style-type: none;
+    padding: 5px;
+    font-weight: bold;
+    color: white;
+    margin-left: 2px;
+    margin-right: 2px;
+    float: left;
+    color: white;
+}
+
+    .cls a:link {
+        text-decoration: none;
+        color: white;
+    }
+
+    .cls:hover .sub-ul {
+        display: block;
+        list-style-type: none;
+        color: white;
+    }
+
+.sub-ul {
+    display: none;
+    color: white;
+    background-color: #412686;
+    font-family: Tahoma;
+    font-variant-caps: all-petite-caps;
+    font-size: 14px;
+}
+
+.bar-sub-li {
+    margin-left: -40px;
+    margin-top: 10px;
+    color: white;
+    height: 30px;
+}
+
+    .bar-sub-li:hover {
+        -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+        box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+        color: white;
+    }
+
+.menu-ul {
+    background-color: red;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    margin-left: auto;
+    margin-right: 4px;
+    margin-top: auto;
+    margin-bottom: auto;
+    position: absolute;
+    color: white;
+}
+
+.menu-li-a {
+    color: white;
+    font-family: Tahoma;
+    font-variant-caps: all-petite-caps;
+    font-size: 14px;
+}
+
+.menu-ul:hover {
+    -webkit-box-shadow: 0px 0px 5px 1px rgba(48,37,48,1);
+    -moz-box-shadow: 0px 0px 5px 1px rgba(48,37,48,1);
+    box-shadow: 0px 0px 5px 1px rgba(48,37,48,1);
+    color: white;
+}
+
+.menu-ul .menu-li {
+    display: none;
+}
+
+.menu-ul:hover .menu-li {
+    display: block;
+}
+
+    .menu-ul:hover .menu-li:hover {
+        background-color: #5e4d8a;
+        color: white;
+        -webkit-box-shadow: 0px 0px 5px 1px rgba(48,37,48,1);
+        -moz-box-shadow: 0px 0px 5px 1px rgba(48,37,48,1);
+        box-shadow: 0px 0px 5px 1px rgba(48,37,48,1);
+        z-index: 1;
+    }
+
+
+.menu-li {
+    text-decoration: none;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: -10px;
+    margin-right: -10px;
+}
+
+.menu-ul-a:link, .menu-ul-a:visited, .menu-ul-a:hover, .menu-ul-a:active {
+    text-decoration: none;
+    text-wrap: normal;
+    color: white;
+}
+
+.menu-li a:link, .menu-li a:visited, .menu-li a:hover, .menu-li a:active {
+    text-decoration: none;
+    text-wrap: normal;
+    color: white;
+}
+
+.b-cont {
+    float: left;
+    width: 100%;
+    height: auto;
+}
+
+.slide-show-mobile {
+    float: left;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.f-cont {
+    float: left;
+    width: 100%;
+    /*background-color: #5e4d8a;*/
+    background-image: url(/Content/LogoImage/xo1DOKG.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: auto;
+    color: white;
+    padding: 10px;
+    border-radius: 0 0 20px 20px;
+    margin-bottom: 10px;
+}
+
+.inner-addon {
+    position: relative;
+}
+
+    .inner-addon .glyphicon {
+        position: absolute;
+        padding: 10px;
+        pointer-events: none;
+    }
+
+.right-addon .glyphicon {
+    right: 0px;
+}
+
+.right-addon input {
+    padding-right: 30px;
+}

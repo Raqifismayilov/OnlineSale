@@ -1,0 +1,82 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using OnlineSale.Areas.AdminPart.Models.OnlineSaleTable
+@model OnlineSale.Areas.AdminPart.Models.ModelView.MainSlideView
+<div class="row clearfix" style="height:15px"></div>
+<div class="row">
+    @using (Html.BeginForm("AddMainSlide", "MainCarusel", FormMethod.Post, new { enctype = "multipart/form-data", @class = "col-xl-12 col-lg-12 col-md-12 cl-sm-12 col-12" }))
+    {
+        <a class="btn-lg btn-sm btn btn-success offset-md-4 col-md-4 offset-md-4 col-sm-12 col-12" id="newSubCat" style="color:white;margin-bottom:20px;cursor:pointer" onclick="subAdd()">Yeni</a>
+        <div class="row" id="subAdd" style="display:none">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                        @Html.Label("Slaydın adı", new { @class = "col-form-label" })
+                    </div>
+                    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                        @Html.TextBoxFor(m => new { m.MainSlide.SlideName }.SlideName, new { @class = "form-control col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12" })
+                    </div>
+                </div>
+                <div class="row clearfix" style="height:15px"></div>
+                <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                        @Html.Label("Şəkil", new { @class = "col-form-label" })
+                    </div>
+                    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                        @Html.TextBoxFor(m => new { m.MainSlide.PhotoPath }.PhotoPath, new { type = "file", @class = "form-control col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12" })
+                    </div>
+                </div>
+                <div class="row clearfix" style="height:15px"></div>
+                <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                        @Html.Label("Şəkilin sıra sayı", new { @class = "col-form-label" })
+                    </div>
+                    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                        @Html.TextBoxFor(m => new { m.MainSlide.RowNumber }.RowNumber, new { type = "number", @class = "form-control col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12" })
+                    </div>
+                </div>
+                <div class="row clearfix" style="height:15px"></div>
+                <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12" style="margin-bottom:5px">
+                        <input type="submit" value="Təsdiqlə" class="btn-lg btn-sm btn btn-success form-control col-sm-12 col-12" />
+                    </div>
+                    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                        <input type="reset" value="Təmizıə" class="btn-lg btn-sm btn btn-danger form-control col-xl-2 col-lg-2 col-md-4 col-sm-12 col-12" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div class="row clearfix" style="height:10px;"></div>
+<div class="row align-content-center">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <table class="table table-responsive-lg table-responsive-sm border table-hover">
+            <caption>Slayd üçün şəkillər</caption>
+            <thead class="thead-dark">
+                <tr style="text-align:center">
+                    <th scope="col">Slaydın adı</th>
+                    <th scope="col">Slayd şəkil</th>
+                    <th scope="col">S/S</th>
+                    <th scope="col">Dəyiş</th>
+                    <th scope="col">Sil</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (MainSlide item in Model.MainSlideList)
+                {
+                    <tr>
+                        <td>@item.SlideName</td>
+                        <td>@item.PhotoPath</td>
+                        <td>@item.RowNumber</td>
+                        <td><a href="/AdminPart/MainCarusel/UpdateMainSlide/@item.Id" class="btn-lg btn-sm btn btn-warning form-control">Dəyiş</a></td>
+                        <td><a href="/AdminPart/MainCarusel/DeleteMainSlide/@item.Id" class="btn-lg btn-sm btn btn-danger form-control">Sil</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

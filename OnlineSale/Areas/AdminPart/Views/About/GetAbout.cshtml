@@ -1,0 +1,86 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using OnlineSale.Areas.AdminPart.Models.OnlineSaleTable
+@model OnlineSale.Areas.AdminPart.Models.ModelView.AboutView
+
+<div class="row clearfix" style="height:15px"></div>
+<div class="row">
+    @using (Html.BeginForm("AddAbout", "About", FormMethod.Post, new { @class = "col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 form-horizontal", placeholder = "off" }))
+    {
+        <a class="btn-lg btn-sm btn btn-success col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12" id="newSubCat" style="color:white;margin-bottom:5px;cursor:pointer" onclick="subAdd()">Yeni</a>
+        <div class="row" id="subAdd" style="display:none">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="row hidden">
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12">
+                        @Html.HiddenFor(m => new { m.About.Id }.Id)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                        @Html.Label("Haqqında Başlıq", new { @class = "col-form-label" })
+                    </div>
+                    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                        @Html.TextBoxFor(m => new { m.About.Header }.Header, new { placeholder = "Başlıq", @class = "form-control col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" })
+                    </div>
+                </div>
+                <div class="row clearfix" style="height:10px"></div>
+                <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                        @Html.Label("Kontent hissəsi", new { @class = "col-form-label" })
+                    </div>
+                    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                        @Html.TextAreaFor(m => new { m.About.Body }.Body, new { id = "content1" })
+                    </div>
+                </div>
+                <div class="row clearfix" style="height:15px"></div>
+                <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                        @Html.Label("Alt hissəsi", new { @class = "col-form-label" })
+                    </div>
+                    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                        @Html.TextBoxFor(m => new { m.About.Footer }.Footer, new { placeholder = "Alt...", @class = "form-control col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" })
+                    </div>
+                </div>
+                <div class="row clearfix" style="height:15px"></div>
+                <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                        <input type="submit" value="Təstiqlə" style="margin-bottom:5px" class="btn-lg btn-sm btn btn-success form-control col-12" />
+                    </div>
+                    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                        <input type="reset" value="İnkar et" class="btn-lg btn-sm btn btn-danger form-control col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div class="row clearfix" style="height:15px"></div>
+<div class="row align-content-center">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <table class="table table-hover border table-responsive-xl table-responsive-lg table-responsive-md table-responsive-sm table-responsive">
+            <thead class="thead-dark">
+                <tr class="text-center">
+                    <th>Başlıq</th>
+                    <th>Kontent</th>
+                    <th>Alt</th>
+                    <th>Dəyiş</th>
+                    <th>Sil</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (AboutMod item in Model.AboutList)
+                {
+                <tr class="text-center">
+                    <td>@item.Header</td>
+                    <td>@Html.Raw(HttpUtility.HtmlDecode(item.Body))</td>
+                    <td>@item.Footer</td>
+                    <td><a href="/AdminPart/About/UpdateAbout/@item.Id" class="btn btn-primary form-control">Dəyiş</a></td>
+                    <td><a href="/AdminPart/About/DeleteAbout/@item.Id" class="btn btn-danger form-control">Sil</a></td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

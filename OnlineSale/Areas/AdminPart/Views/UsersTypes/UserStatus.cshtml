@@ -1,0 +1,39 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using OnlineSale.Areas.AdminPart.Models.OnlineSaleTable
+@model OnlineSale.Areas.AdminPart.Models.ModelView.UserTypeView
+
+<div>
+    <form>
+        <div class="container-fluid">
+            <div class="row clearfix" style="height:10px;"></div>
+            <div class="row">
+                <div class="col">
+                    <a href="/UsersTypes/AddUserTypes" class="btn btn-secondary">Yeni istifadəci vəzifəsi</a>
+                </div>
+            </div>
+            <div class="row clearfix" style="height:10px;"></div>
+            <table class="table border table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Vəzifələr</th>
+                        <th>Dəyiş</th>
+                        <th>Sil</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (UserType item in Model.usersTypes)
+                    {
+                        <tr>
+                            <td>@item.TypeName</td>
+                            <td><a href="/UsersTypes/UpdateUserType/@item.Id" class="btn btn-outline-primary">Dəyiş</a></td>
+                            <td><a href="/UsersTypes/DeleteUserType/@item.Id" class="btn btn-outline-success">Sil</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </form>
+</div>

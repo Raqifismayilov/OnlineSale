@@ -1,0 +1,29 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using OnlineSale.Areas.AdminPart.Models.OnlineSaleTable
+@model OnlineSale.Areas.AdminPart.Models.ModelView.UserTypeView
+
+@using (Html.BeginForm("AddUserTypes", "UsersTypes", FormMethod.Post))
+{<div class="container-fluid">
+        <div class="row clearfix" style="height:10px;"></div>
+        <div class="row">
+            <div class="col-lg-2">
+                <label class="userTypeStatus">Vəzifə</label>
+            </div>
+            <div class="col-lg-2">
+                @Html.TextBoxFor(m => new { m.userType.TypeName }.TypeName, new { type = "text", autocomplate = "off", @class = "form-control" })
+            </div>
+            <div class="col-lg-1">
+                <input type="submit" name="Add" value="Təsdiqlə" class="btn btn-primary form-control" />
+            </div>
+            <div class="col-lg-1">
+                <a href="/UsersTypes/UserStatus" class="btn btn-secondary">Ləğv et</a>
+            </div>
+            <div class="col-lg-1">
+                <a href="/User/Index" class="btn btn-secondary">Istifadeciye qayit</a>
+            </div>
+        </div>
+    </div>
+}

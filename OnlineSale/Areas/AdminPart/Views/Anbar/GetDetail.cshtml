@@ -1,0 +1,84 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using OnlineSale.Areas.AdminPart.Models.OnlineSaleTable
+@model  OnlineSale.Areas.AdminPart.Models.ModelView.StockView
+
+<div class="row clearfix" style="height:15px"></div>
+@using (Html.BeginForm("AddDetail", "Anbar", FormMethod.Post, new { @class = "row" }))
+{
+    <div class=" col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="row hide">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 hide">
+                @Html.HiddenFor(m => new { m.SubPrdDetail.ProductId }.ProductId)
+            </div>
+        </div>
+        <div class="row hide">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 hide">
+                @Html.HiddenFor(m => new { m.SubPrdDetail.StockId }.StockId)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-12 font-weight-bold">
+                @Html.Label("Xüsusiyyət növü", new { @class = "col-form-label" })
+            </div>
+            <div class="col-xl-10 col-lg-10 col-md-8 col-sm-12 col-12">
+                @Html.TextBoxFor(m => new { m.SubPrdDetail.Name }.Name, new { @class = "form-control col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12" })
+            </div>
+        </div>
+        <div class="row clearfix" style="height:10px"></div>
+        <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-12 font-weight-bold">
+                @Html.Label("Xüsusiyyət", new { @class = "col-form-label" })
+            </div>
+            <div class="col-xl-10 col-lg-10 col-md-8 col-sm-12 col-12">
+                @Html.TextAreaFor(m => new { m.SubPrdDetail.Values }.Values, new { @class = "form-control col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12" })
+            </div>
+        </div>
+        <div class="row clearfix" style="height:10px"></div>
+        <div class="row">
+            <div class="col-lg-2 col-lg-2 col-md-4 col-sm-12 col-12">
+                <input type="submit" value="Təsdiqlə" style="margin-bottom:5px" class="btn-lg btn-sm btn btn-success form-control col-sm-12 col-12" />
+            </div>
+            <div class="col-xl-10 col-lg-10 col-md-8 col-sm-12 col-12">
+                <a href="/AdminPart/Anbar/GetAnbar" class="btn-lg btn-sm btn btn-danger form-control col-xl-2 col-lg-2 col-md-4 col-sm-12 col-12">İnkar et</a>
+            </div>
+        </div>
+    </div>
+}
+<div class="row clearfix" style="height:5px"></div>
+<div class="row align-content-center">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <table class="table table-responsive-lg table-responsive-sm border table-hover">
+            <caption>Hazırda mövcüd olan mallar</caption>
+            <thead class="thead-dark">
+                <tr style="text-align:center">
+                    <th scope="col">Malın adı</th>
+                    <th scope="col">Kategoriyası</th>
+                    <th scope="col">Alt Kategoriyası</th>
+                    <th scope="col">Xüsusiyyətin növü</th>
+                    <th scope="col">Xüsusiyyət</th>
+                    <th scope="col">Dəyiş</th>
+                    <th scope="col">Sil</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (ProductDetail detailItem in Model.productsDetails)
+                {
+                    <tr>
+                        <td style="text-align:center">#</td>
+                        <td style="text-align:center"><strong>@detailItem.ProductCategory</strong></td>
+                        <td style="text-align:center">@detailItem.ProductSubCategory</td>
+                        <td style="text-align:center">@detailItem.Name</td>
+                        <td style="text-align:center">@detailItem.Values</td>
+                        <td style="text-align:center"><a href="/AdminPart/Anbar/UpdateDetail?productId=@detailItem.ProductId" class="btn btn-success btn form-control">Dəyiş</a></td>
+                        <td style="text-align:center"><a href="/AdminPart/Anbar/DeleteDetail?ProductId=@detailItem.ProductId&stockId=@detailItem.StockId" class="btn btn-danger btn form-control">Sil</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

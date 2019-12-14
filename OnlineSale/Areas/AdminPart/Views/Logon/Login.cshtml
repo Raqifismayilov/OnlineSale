@@ -1,0 +1,64 @@
+﻿@{
+    /**/
+
+    Layout = null;
+}
+@using OnlineSale.Areas.AdminPart.Models.UserSign
+@model OnlineSale.Areas.AdminPart.Models.UserSign.UserSignIn
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <title>Daxil ol</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="clearfix" style="height:100px;min-height:50px"></div>
+        <div class="row" style="margin-left:10px;margin-right:10px;background-color:rgb(205, 232, 251);box-shadow: 0px 0px 5px 0px rgba(41,4,71,1);border-radius:5px">
+            @using (Html.BeginForm("Login", "Logon", FormMethod.Post, new { @class = "col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12", autocomplete = "off" }))
+            {
+                <div class="row clearfix" style="height:10px"></div>
+                <div class="row">
+                    <p class="offset-xl-4 col-xl-4 offset-xl-4 offset-lg-4 col-lg-4 offset-lg-4 offset-md-3 col-md-6 col-md-3 offset-sm-2 col-sm-8 offset-sm-2 offset-1 col-10 offset-1 font-weight-bold text-center">Xoş gəlmisiniz!</p>
+                </div>
+                <div class="row clearfix" style="height:5px"></div>
+                <div class="row">
+                    <p class="offset-xl-4 col-xl-4 offset-xl-4 offset-lg-4 col-lg-4 offset-lg-4 offset-md-3 col-md-6 col-md-3 offset-sm-2 col-sm-8 offset-sm-2 offset-1 col-10 offset-1 font-weight-bold text-center text-secondary">Daxil olmaq üçün istifadəçi və şifrənizi qeyd edin</p>
+                </div>
+                <div class="row clearfix" style="height:10px"></div>
+                <div class="row">
+                    @Html.TextBoxFor(m => m.Username, new { type = "text", placeholder = "İstifadəçi", @class = "offset-xl-4 col-xl-4 offset-xl-4 offset-lg-4 col-lg-4 offset-lg-4 offset-md-3 col-md-6 col-md-3 offset-sm-2 col-sm-8 offset-sm-2 offset-1 col-10 offset-1 form-control" })
+                </div>
+                <div class="row clearfix" style="height:10px"></div>
+                <div class="row">
+                    @Html.TextBoxFor(m => m.Password, new { type = "password", placeholder = "Şifrə", @class = "offset-xl-4 col-xl-4 offset-xl-4 offset-lg-4 col-lg-4 offset-lg-4 offset-md-3 col-md-6 col-md-3 offset-sm-2 col-sm-8 offset-sm-2 offset-1 col-10 offset-1 form-control" })
+                </div>
+                <div class="row clearfix" style="height:5px"></div>
+                <div class="row">
+                    <div class="offset-xl-4 col-xl-4 offset-xl-4 offset-lg-4 col-lg-4 offset-lg-4 offset-md-3 col-md-3 offset-md-3 offset-sm-2 col-sm-4 offset-sm-2 offset-1 col-10 offset-1">
+                        <input type="checkbox" id="checkMe" class="my-auto">
+                        <label class="font-weight-bold my-auto" for="checkMe">Məni yadda saxla</label>
+                        <a href="/AdminPart/Logon/RecoveryUser" class="float-right font-weight-bold">Şifrəmi unutmuşam</a>
+                    </div>
+                </div>
+                <div class="row clearfix" style="height:10px"></div>
+                <div class="row">
+                    <input type="submit" class="btn-sm btn-success form-control font-weight-bold offset-xl-4 col-xl-4 offset-xl-4 offset-lg-4 col-lg-4 offset-lg-4 offset-md-3 col-md-6 col-md-3 offset-sm-2 col-sm-8 offset-sm-2 offset-1 col-10 offset-1" value="DAXİL OL" />
+                </div>
+                <div class="row clearfix" style="height:20px"></div>
+            }
+        </div>
+        <div class="clearfix" style="height:10px;min-height:5px"></div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+</body>
+</html>
+

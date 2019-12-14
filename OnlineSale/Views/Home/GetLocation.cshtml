@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "GetContact";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+@using OnlineSale.Areas.AdminPart.Models.OnlineSaleTable
+@model OnlineSale.Models.HomeView
+<div class="row clearfix" style="height:15px;"></div>
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="row">
+            <iframe allowfullscreen class="col-xl-12 col-lg-12 col-sm-12 col-12" src=" @Model.ContactList.FirstOrDefault().MapPath" height="400" frameborder="0"></iframe>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <hr />
+    </div>
+</div>
+<div class="row clearfix" style="height:15px;"></div>
+

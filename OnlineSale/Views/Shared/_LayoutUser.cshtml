@@ -1,0 +1,562 @@
+﻿@using OnlineSale.Areas.AdminPart.Models.OnlineSaleTable
+@using OnlineSale.Areas.AdminPart.Models.ModelView
+@model OnlineSale.Models.HomeView
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewBag.Title</title>
+    <link rel="shortcut icon" type="image/x-icon" href="~/Content/LogoImage/allinAz.png" sizes="16x16">
+    <link href="~/Content/LayoutCascade.css" rel="stylesheet" />
+    <link href="~/Content/BodyContent.css" rel="stylesheet" />
+    <link href="~/Content/AjacLib.css" rel="stylesheet" />
+    <link href="~/Content/SocialButtonStyle.css" rel="stylesheet" />
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+
+    <link href="~/Content/menuBar.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark" style="margin-top:-50px;">
+        <a class="navbar-brand admin-a" href="/Home/Index"><img src="~/Content/LogoImage/home.png" style="height:25px;width:25px" />&nbsp;<b>ALLIN.AZ</b></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+                @foreach (AdminPanel adPanel in Model.AdminPanel)
+                {
+                    if (adPanel.AdminUsert == false)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link admin-a" href="/Home/@adPanel.CategoryPath.Substring(adPanel.CategoryPath.IndexOf('/')+1)"><img src="~/Content/LogoImage/@adPanel.LogoPath" style="height:25px;width:25px" />&nbsp;<b>@adPanel.AdminCategory</b></a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </nav>
+    <div class="container-fluid full-div">
+        <div class="row header-bar">
+            <div class="col-xl-3 col-lg-3 col-md-2 col-sm-12 col-12 text-center">
+                <a href="">
+                    <img class="allnAzImg" src="~/Content/LogoImage/allinazLogo1.png" />
+                </a>
+            </div>
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12">
+                <p class="text-center font-weight-bold mt-2"><span class="header-sp">+994505888807</span> nömrəsinə zəng edərək sifariş edə bilərsiniz</p>
+            </div>
+            <div class="col-xl-7 col-lg-7 col-md-8 col-sm-12 col-12">
+                <h1 class="h2Text" style="color:#5e4d8a;text-align:center">Alınan məhsulların çatdırılması pulsuzdur!</h1>
+            </div>
+        </div>
+        <div class="row prdSRC">
+            @using (Html.BeginForm("SearchProduct", "Home", FormMethod.Post, new { @class = "col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12", autocomplete = "off" }))
+            {
+                <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-2 col-sm-12 col-12 pb-1">
+                        @*@Html.DropDownListFor(m => new { m.ProductFirstCat.Id }.Id, ViewBag.Category as SelectList, "Bütün məhsullar", new { @class = "col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 form-control" })*@
+                        <select class="form-control col-12" name="ProductId">
+                            <option selected disabled>-Məhsullar-</option>
+                            @foreach (ProductCategory prd in Model.ProductsCategorys)
+                            {
+                                <option value="@prd.Id">@prd.ProductName</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-2 col-sm-12 col-12 pb-1">
+                        <select class="form-control col-12" name="SubProductId">
+                            <option selected disabled>-Firmalar-</option>
+                            @foreach (ProductSubCategory subPrd in Model.SubProductsCategory)
+                            {
+                                <option value="@subPrd.Id">@subPrd.SubPrdName</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-2 col-sm-12 col-12 pb-1">
+                        <select class="form-control col-12 text-center" name="ProductCondition">
+                            <option selected disabled>-Məhsulun vəziyyəti-</option>
+                            <option value="true">Yeni</option>
+                            <option value="false">İşlənmiş</option>
+                        </select>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-2 col-sm-12 col-12">
+                        <div class="btn-group">
+                            @Html.TextBoxFor(m => new { m.SearchInCat.ProductName }.ProductName, new { @class = "form-control col-lg-11 col-11", placeholder = "Məhsulun adı" })
+                            <input type="submit" value="Axtar" style="background-color:#5e4d8a;color:white" class="form-control btn btn-light col-12" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="row clearfix" style="height:5px"></div>
+        <div class="topnav" id="myTopnav" style="margin-bottom:50px;">
+            <a class="active"><span style="font-weight:bold; color:white;">MENU</span></a>
+            @foreach (ProductCategory prd in Model.ProductsCategorys)
+            {
+                <div class="dropdown">
+                    <button class="dropbtn">
+                        @prd.ProductName
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+
+                    @foreach (ProductSubCategory subPrd in Model.SubProductsCategory)
+                    {
+                        if (subPrd.ProductCategoryId == prd.Id)
+                        {
+                            <div class="dropdown-content">
+                                <a href="#">@subPrd.SubPrdName</a>
+                            </div>
+                        }
+                    }
+
+                </div>
+            }
+            <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunc()">&#9776;</a>
+        </div>
+        <div class="row menu-bar" style="z-index:1" id="menuDesktop">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <ul class="menubar-ul" style="z-index:1;">
+                    @foreach (ProductCategory prd in Model.ProductsCategorys)
+                    {
+                        <li class="cls">
+
+                            @if (Model.SubProductsCategory.FirstOrDefault(x => x.ProductCategoryId == prd.Id) != null)
+                            {
+                                <a class="cls-anc" style="color:white; width:100%;" href="#">@prd.ProductName</a>
+                            }
+                            else
+                            {
+                                <a class="cls-anc" style="color:white;width:100%;" href="~/Home/GetProduct/@prd.Id">@prd.ProductName</a>
+                            }
+
+                            <ul class="sub-ul" style="z-index:1;">
+                                @foreach (ProductSubCategory subPrd in Model.SubProductsCategory)
+                                {
+                                    if (subPrd.ProductCategoryId == prd.Id)
+                                    {
+                                        <li class="bar-sub-li">
+                                            <a class="cls-anc" style="color:white;width:100%; padding:3px;" href="~/Home/GetProduct/@subPrd.Id">@subPrd.SubPrdName</a>
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="row b-cont">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="container h-100">
+                    @RenderBody()
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container">
+        @if (Model.TopSlidePruduct.StockListNew != null)
+        {
+            <div class="row clearfix" style="height:15px"></div>
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 justify-content-center text-center font-weight-bold">
+                    <span class="col-form-label-lg" style="background-color:#0094ff;border-radius:40px;color:white;padding-left:70px;padding-right:70px">YENİLİKLƏR</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel" data-interval="1000">
+                        <div class="MultiCarousel-inner">
+                            @foreach (StockUser item in Model.TopSlidePruduct.StockListNew)
+                            {
+                                <div class="item">
+                                    <div class="pad15">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                              <p style="vertical-align:central;height:35px">@item.ProductCategory</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <span style="text-align:center;vertical-align:middle;position:fixed;background-color:rgb(128, 128, 128);color:white;padding-left:18px;padding-right:18px;padding-bottom:9px;padding-top:9px;border-radius:50%;-webkit-box-shadow: 0px 0px 13px 0px rgba(0,0,0,0.75);
+                                                -moz-box-shadow: 0px 0px 13px 0px rgba(0,0,0,0.75);
+                                                 box-shadow: 0px 0px 13px 0px rgba(0,0,0,0.75);">Buy<br>me</span>
+                                                <a href="~/Home/GetProductDetail/@item.Id"><img class="image-item" src="~/Content/ProductMainImg/@item.MainPhotoPath" style="height:auto;width:100%;margin-bottom:2px" /></a>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <p style="vertical-align:central;height:50px" title="@item.ProductName">@item.ProductName</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                @{
+                                                    bool? result = item.ProductCondition;
+                                                    string dispLetter;
+                                                    if (result == true)
+                                                    { dispLetter = "Yeni"; }
+                                                    else
+                                                    { dispLetter = "İşlənmiş"; }
+                                                    <p style="vertical-align:central;background-color:black;color:white;font-weight:bold;padding-bottom:3px;padding-top:3px;font-size:15px" title="@dispLetter">@dispLetter</p>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12"><hr /></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <p><span style="background-color:#0094ff;color:white;border-radius:20px;padding:5px">@item.Price @item.ValutaType</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <button class="btn btn-warning leftLst"><</button>
+                        <button class="btn btn-warning rightLst">></button>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (Model.TopSlidePruduct.StockListEndirim != null)
+        {
+            <div class="row clearfix" style="height:20px"></div>
+            <div class="row">
+                <div class="col-lg-12 justify-content-center text-center font-weight-bold">
+                    <span class="col-form-label-lg" style="background-color:red;border-radius:40px;color:white;padding-left:70px;padding-right:70px">ENDİRİMLƏR</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel" data-interval="1000">
+                    <div class="MultiCarousel-inner">
+                        @foreach (StockUser item in Model.TopSlidePruduct.StockListEndirim)
+                        {
+                            <div class="item">
+                                <div class="pad15">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <p style="vertical-align:central;height:35px">@item.ProductCategory</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <span style="position:fixed;background-color:red;color:white;padding-left:7px;padding-right:7px;padding-bottom:10px;padding-top:10px;border-radius:50%;-webkit-box-shadow: 0px 0px 13px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 0px 13px 0px rgba(0,0,0,0.75);
+box-shadow: 0px 0px 13px 0px rgba(0,0,0,0.75);">@item.Endirim@item.EndirimType<br>Endirim</span>
+<a href="~/Home/GetProductDetail/@item.Id"><img class="image-item" src="~/Content/ProductMainImg/@item.MainPhotoPath" style="height:auto;width:100%;margin-bottom:5px" /></a>
+</div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <p style="vertical-align:central;height:50px" title="@item.ProductName">@item.ProductName</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        @{
+            bool? result = item.ProductCondition;
+            string dispLetter;
+            if (result == true)
+            { dispLetter = "Yeni"; }
+            else
+            { dispLetter = "İşlənmiş"; }
+            <p style="vertical-align:central;background-color:black;color:white;font-weight:bold;padding-bottom:3px;padding-top:3px;font-size:15px" title="@dispLetter">@dispLetter</p>
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12"><hr /></div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <p><span style="background-color:red;color:white;border-radius:20px;padding:5px">@item.oldPrice() @item.ValutaType</span></p>
+        <p><del>@item.Price </del>&#8380</p>
+    </div>
+</div>
+</div>
+</div>
+}
+                    </div>
+                    <button class="btn btn-warning leftLst"><</button>
+                    <button class="btn btn-warning rightLst">></button>
+                </div>
+            </div>
+        }
+        @if (Model.TopSlidePruduct.StockListMixed != null)
+        {
+            <div class="row clearfix" style="height:20px"></div>
+            <div class="row">
+                <div class="col-lg-12 justify-content-center text-center font-weight-bold">
+                    <span class="col-form-label-lg" style="background-color:#5e4d8a;border-radius:40px;color:white;padding-left:100px;padding-right:100px">QARIŞIQ</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="MultiCarousel" data-items="1,3,5,6" data-slide="1" id="MultiCarousel" data-interval="1000">
+                    <div class="MultiCarousel-inner">
+                        @foreach (StockUser item in Model.TopSlidePruduct.StockListMixed)
+                        {
+                            <div class="item">
+                                <div class="pad15">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <p style="vertical-align:central;height:35px">@item.ProductCategory</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <a href="~/Home/GetProductDetail/@item.Id"><img class="image-item" src="~/Content/ProductMainImg/@item.MainPhotoPath" style="height:auto;width:100%;margin-bottom:5px" /></a>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <p style="vertical-align:central;height:50px" title="@item.ProductName">@item.ProductName</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            @{
+                                                bool? result = item.ProductCondition;
+                                                string dispLetter;
+                                                if (result == true)
+                                                { dispLetter = "Yeni"; }
+                                                else
+                                                { dispLetter = "İşlənmiş"; }
+                                                <p style="vertical-align:central;background-color:black;color:white;font-weight:bold;padding-bottom:3px;padding-top:3px;font-size:15px" title="@dispLetter">@dispLetter</p>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12"><hr /></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            @if (string.IsNullOrEmpty(item.EndirimType))
+                                            {
+                                                <p><span style="background-color:#5e4d8a;color:white;border-radius:20px;padding:5px">@item.Price @item.ValutaType</span></p>
+
+                                            }
+                                            else
+                                            {
+                                                <p><span style="background-color:red;color:white;border-radius:20px;padding:5px">@item.oldPrice() @item.ValutaType</span></p>
+                                                <p><del>@item.Price </del>&#8380</p>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <button class="btn btn-warning leftLst"><</button>
+                    <button class="btn btn-warning rightLst">></button>
+                </div>
+            </div>
+        }
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <br /><br /><br />
+                <hr />
+                <p>Güman edirik ki</p>
+                <p>Siz bu arada ozünuz üçün marağlı məhsullar əldə etmək nailiyyətinə gələcəksiniz</p>
+                <p>Seçim sizdən məhsul bizdən</p>
+            </div>
+        </div>
+    </div>
+    <div class="row f-cont" style="margin-bottom:-40px;">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <footer>
+                <div class="row">
+                    <div class="col-lg-12 justify-content-center text-center font-weight-bold">
+                        @Model.FooterList.FirstOrDefault().Header
+                        <hr />
+                    </div>
+                </div>
+                <div class="row clearfix" style="height:5px"></div>
+                <div class="row">
+                    <div class="col-lg-12 justify-content-center flex-lg-wrap">
+                        <p style="text-indent:15px">@Model.FooterList.FirstOrDefault().Body</p>
+                    </div>
+                </div>
+                <div class="row clearfix" style="height:7px"></div>
+                <div class="row contactUs">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                        <address>
+                            Bizimlə əlaqə:<a href="mailto:@Model.FeedbackEmail">@Model.FeedbackEmail</a>
+                        </address>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 text-lg-right">
+                        <a href="tel:+994552280038"><img src="~/Content/LogoImage/callme.png" /></a><span style="color:white">created By @Model.FooterList.FirstOrDefault().Footer</span>
+                    </div>
+                </div>
+                <div class="row clearfix" style="height:7px"></div>
+                <div class="row socButton">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-6 col-12">
+                        @foreach (SocialMediaMod item in Model.SocialMediaList)
+                        {
+                            <a href="@item.SocPath" target="_blank" class="@item.SocName"></a>
+                        }
+                    </div>
+                </div>
+                <div class="row clear" style="height:5px"></div>
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-6 col-12 justify-content-center text-center">
+                        &copy;@Model.FooterList.FirstOrDefault().Copyright
+                    </div>
+                </div>
+                <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+            </footer>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script>
+        function myFunc() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+        }
+
+
+        $(document).ready(function () {
+            var itemsMainDiv = ('.MultiCarousel');
+            var itemsDiv = ('.MultiCarousel-inner');
+            var itemWidth = "";
+
+            $('.leftLst, .rightLst').click(function () {
+                var condition = $(this).hasClass("leftLst");
+                if (condition)
+                    click(0, this);
+                else
+                    click(1, this)
+            });
+
+            ResCarouselSize();
+
+            $(window).resize(function () {
+                ResCarouselSize();
+            });
+
+            //this function define the size of the items
+            function ResCarouselSize() {
+                var incno = 0;
+                var dataItems = ("data-items");
+                var itemClass = ('.item');
+                var id = 0;
+                var btnParentSb = '';
+                var itemsSplit = '';
+                var sampwidth = $(itemsMainDiv).width();
+                var bodyWidth = $('body').width();
+                $(itemsDiv).each(function () {
+                    id = id + 1;
+                    var itemNumbers = $(this).find(itemClass).length;
+                    btnParentSb = $(this).parent().attr(dataItems);
+                    itemsSplit = btnParentSb.split(',');
+                    $(this).parent().attr("id", "MultiCarousel" + id);
+
+                    if (bodyWidth >= 1200) {
+                        incno = itemsSplit[3];
+                        itemWidth = sampwidth / incno;
+                    }
+                    else if (bodyWidth >= 992) {
+                        incno = itemsSplit[2];
+                        itemWidth = sampwidth / incno;
+                    }
+                    else if (bodyWidth >= 768) {
+                        incno = itemsSplit[1];
+                        itemWidth = sampwidth / incno;
+                    }
+                    else {
+                        incno = itemsSplit[0];
+                        itemWidth = sampwidth / incno;
+                    }
+                    $(this).css({ 'transform': 'translateX(0px)', 'width': itemWidth * itemNumbers });
+                    $(this).find(itemClass).each(function () {
+                        $(this).outerWidth(itemWidth);
+                    });
+
+                    $(".leftLst").addClass("over");
+                    $(".rightLst").removeClass("over");
+
+                });
+            }
+
+
+            //this function used to move the items
+            function ResCarousel(e, el, s) {
+                var leftBtn = ('.leftLst');
+                var rightBtn = ('.rightLst');
+                var translateXval = '';
+                var divStyle = $(el + ' ' + itemsDiv).css('transform');
+                var values = divStyle.match(/-?[\d\.]+/g);
+                var xds = Math.abs(values[4]);
+                if (e == 0) {
+                    translateXval = parseInt(xds) - parseInt(itemWidth * s);
+                    $(el + ' ' + rightBtn).removeClass("over");
+
+                    if (translateXval <= itemWidth / 2) {
+                        translateXval = 0;
+                        $(el + ' ' + leftBtn).addClass("over");
+                    }
+                }
+                else if (e == 1) {
+                    var itemsCondition = $(el).find(itemsDiv).width() - $(el).width();
+                    translateXval = parseInt(xds) + parseInt(itemWidth * s);
+                    $(el + ' ' + leftBtn).removeClass("over");
+
+                    if (translateXval >= itemsCondition - itemWidth / 2) {
+                        translateXval = itemsCondition;
+                        $(el + ' ' + rightBtn).addClass("over");
+                    }
+                }
+                $(el + ' ' + itemsDiv).css('transform', 'translateX(' + -translateXval + 'px)');
+            }
+
+            //It is used to get some elements from btn
+            function click(ell, ee) {
+                var Parent = "#" + $(ee).parent().attr("id");
+                var slide = $(Parent).attr("data-slide");
+                ResCarousel(ell, Parent, slide);
+            }
+
+        });
+
+
+
+
+        //For button tops
+        var mybutton = document.getElementById("myBtn");
+
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
+</body>
+</html>

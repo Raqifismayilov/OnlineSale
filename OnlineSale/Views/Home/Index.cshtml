@@ -1,0 +1,99 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+@using OnlineSale.Areas.AdminPart.Models.OnlineSaleTable
+@model OnlineSale.Models.HomeView
+
+<div class="head-slide-cascade" style="padding-bottom:15px">
+    <div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel" style="z-index:0">
+        <ol class="carousel-indicators">
+            @foreach (MainSlide slide in Model.MainSlideList)
+            {
+
+                if (slide.RowNumber == 1)
+                {
+                    <li data-target="#carousel-example-2" data-slide-to="0" class="active"></li>
+                }
+                else
+                {
+                    <li data-target="#carousel-example-2" data-slide-to="@slide.RowNumber"></li>
+                }
+               
+            }
+
+        </ol>
+        <div class="carousel-inner" role="listbox" style="z-index:0">
+            @*<div class="carousel-item active" style="z-index:0">
+            <div class="view" style="z-index:0">
+                <img class="d-block w-100" src="~/Content/MainSlideImg/@Model.MainSlideList.FirstOrDefault().PhotoPath" />
+                <div class="mask rgba-black-light"></div>
+            </div>
+            <div class="carousel-caption">
+                <h3 class="h3-responsive"></h3>
+                <p>@Model.MainSlideList.FirstOrDefault().SlideName</p>
+            </div>
+        </div>*@
+       
+            @foreach (MainSlide slide in Model.MainSlideList)
+            {
+             
+                if (slide.RowNumber== 1)
+                {
+                    <div class="carousel-item active" style="z-index:0">
+                        <div class="view" style="z-index:0">
+                            <img class="d-block w-100" src="~/Content/MainSlideImg/@slide.PhotoPath"
+                                 alt="Second slide">
+                            <div class="mask rgba-black-strong"></div>
+                        </div>
+                        <div class="carousel-caption">
+                            <h3 class="h3-responsive">@slide.SlideName</h3>
+                            <p>@slide.RowNumber</p>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="carousel-item" style="z-index:0">
+                        <div class="view" style="z-index:0">
+                            <img class="d-block w-100" src="~/Content/MainSlideImg/@slide.PhotoPath"
+                                 alt="Second slide">
+                            <div class="mask rgba-black-strong"></div>
+                        </div>
+                        <div class="carousel-caption">
+                            <h3 class="h3-responsive">@slide.SlideName</h3>
+                            <p>@slide.RowNumber</p>
+                        </div>
+                    </div>
+                }         
+            }
+        </div>
+        <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Qeriyə</span>
+        </a>
+        <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">İrəli</span>
+        </a>
+    </div>
+</div>
+<div class="index-slide-right">
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
+            <div class="" style="background-color:#5e4d8a;color:white">Bu həftənin endirimi</div>
+        </div>
+    </div>
+    <div class="row clearfix" style="height:3px"></div>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
+            <p>@Model.StockList.FirstOrDefault().ProductCategory</p>
+            <p>@Model.StockList.FirstOrDefault().SubPrdName @Model.StockList.FirstOrDefault().ProductName</p>
+            <img src="~/Content/ProductMainImg/@Model.StockList.FirstOrDefault().MainPhotoPath" style="padding:5px;height:161px;" />
+            <p>@Model.StockList.FirstOrDefault().Endirim @Model.StockList.FirstOrDefault().EndirimType</p>
+            <p>@Model.StockList.FirstOrDefault().Price @Model.StockList.FirstOrDefault().ValutaType</p>
+        </div>
+    </div>
+
+</div>
+

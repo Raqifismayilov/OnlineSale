@@ -1,0 +1,81 @@
+﻿@using OnlineSale.Areas.AdminPart.Models.OnlineSaleTable
+@using OnlineSale.Areas.AdminPart.Models.ModelView
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.AdminTitle</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/LayoutCascade.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <link href="~/Content/AdminLeftCollapsedMenu.css" rel="stylesheet" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div id="mySidebar" class="sidebar">
+                    <span class="text-center" style="color:white;padding:10px;margin-bottom:5px">@HttpContext.Current.User.Identity.Name</span>
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                    <a class=" text-center category" href="/AdminPart/AdminPanel/GetAdminPanel"><span style="color:#ffc300">Menu kategoriya</span></a><hr style="color:red">
+                    @foreach (AdminPanel adPanel in Model.AdminPanel)
+                    {
+                        <a class="category" href="/AdminPart/@adPanel.CategoryPath">@adPanel.AdminCategory</a>
+                    }
+                </div>
+                <div id="main">
+                    <div style="background-color:#ffd800">
+                        <button class="openbtn" onclick="openNav()">&#9776;Online Sale</button>
+                        <div class="btn-group-lg btn-group-sm btn-group">
+                            <a href="/AdminPart/User/GetUser" class="btn-lg btn-sm btn btn-secondary font-weight-bold">İstifadəçi</a>
+                            <a href="/AdminPart/Logon/Logout" class="btn-lg btn-sm btn btn-danger font-weight-bold">Çıxış</a>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="myModal" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Xəbərdarlıq!</h5>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <h6 class="modal-title text-center">Seçdiginiz məlumatı silmək üçün təsdiqləyin.</h6>
+                                        </div>
+                                    </div>
+                                    <div class="row clearfix" style="height:10px"></div>
+                                    <div class="row">
+                                        <div class="offset-xl-3 col-xl-3 offset-lg-3 col-lg-3 offset-md-3 col-md-3 col-sm-12 col-12">
+                                            <a id="subBtn" onclick="subBtnFnc('Bəli')" class="btn btn-success form-control" style="color:white;margin-bottom:5px">Bəli</a>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
+                                            <input type="submit" value="Xeyir" onclick="myConfirm(this.value)" class="btn btn-danger col-sm-12 col-12 form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-sm btn-lg btn-outline-secondary" data-dismiss="modal" id="closeBtn">Bağla</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/AdminLeftCollapsedSc.js"></script>
+    <script src="~/Scripts/boostrap-3.4.0.min.js"></script>
+    <script src="~/Scripts/ckeditor4/ckeditor.js"></script>
+    <script src="~/Scripts/ckeditor4Script.js"></script>
+</body>
+</html>

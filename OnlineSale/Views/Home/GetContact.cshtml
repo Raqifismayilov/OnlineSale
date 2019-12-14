@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "GetContact";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+@using OnlineSale.Areas.AdminPart.Models.OnlineSaleTable
+@model OnlineSale.Models.HomeView
+
+<div class="row clearfix" style="height:10px"></div>
+
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-12 font-weight-bold">
+                @Html.Label("Şəhər nömrəsi:", new { @class = "col-form-label label-primary" })
+            </div>
+            <div class="col-xl-10 col-lg-10 col-md-8 col-sm-12 col-12">
+                @Html.Label(@Model.ContactList.FirstOrDefault().Number, new { @class = "col-form-label" })
+            </div>
+        </div>
+        <div class="row clearfix" style="height:10px"></div>
+        <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-12 font-weight-bold">
+                @Html.Label("Mobil nömrə:", new { @class = "col-form-label" })
+            </div>
+            <div class="col-xl-10 col-lg-10 col-md-8 col-sm-12 col-12">
+                @Html.Label(@Model.ContactList.FirstOrDefault().MobNumber, new { @class = "col-form-label" })
+            </div>
+        </div>
+        <div class="row clearfix" style="height:10px"></div>
+        <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-12 font-weight-bold">
+                @Html.Label("Elektron poçt:", new { @class = "col-form-label" })
+            </div>
+            <div class="col-xl-10 col-lg-10 col-md-8 col-sm-12 col-12">
+                <label class="col-form-label">
+                    <a href="mailto:@Model.ContactList.FirstOrDefault().Email">@Model.ContactList.FirstOrDefault().Email</a>
+                </label>
+            </div>
+        </div>
+        <div class="row clearfix" style="height:10px"></div>
+        <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-12 font-weight-bold">
+                @Html.Label("Ünvan:", new { @class = "col-form-label" })
+            </div>
+            <div class="col-xl-10 col-lg-10 col-md-8 col-sm-12 col-12">
+                <label class="col-form-label">
+                    @Model.ContactList.FirstOrDefault().OurAddress
+                </label>
+            </div>
+        </div>
+        <div class="row clearfix" style="height:10px"></div>
+        <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-12 font-weight-bold">
+                <label class="text-primary"><b>Xəritədə bax</b></label>
+            </div>
+            <div class="col-xl-10 col-lg-10 col-md-8 col-sm-12 col-12">
+                <div class="row">
+                    <iframe class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" allowfullscreen src=" @Model.ContactList.FirstOrDefault().MapPath" height="250" frameborder="0"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-12 font-weight-bold">
+                <label class="text-primary"><b>Xəritədə bax</b></label>
+            </div>
+            <div class="col-xl-10 col-lg-10 col-md-8 col-sm-12 col-12">
+                <div class="embed-responsive embed-responsive-21by9 iframeResponse">
+                    <iframe class="embed-responsive-item" allowfullscreen src=" @Model.ContactList.FirstOrDefault().MapPath" frameborder="0"></iframe>
+                </div>
+            </div>
+        </div>*@
+</div>
+</div>
+<hr />
+<div class="row clearfix" style="height:10px"></div>

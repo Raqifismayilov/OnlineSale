@@ -1,0 +1,116 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using OnlineSale.Areas.AdminPart.Models.OnlineSaleTable
+@model OnlineSale.Areas.AdminPart.Models.ModelView.ProductSubCatView
+
+<div class="row clearfix" style="height:15px;"></div>
+<div class="row">
+    @using (Html.BeginForm("AddSubPruduct", "SubProduct", FormMethod.Post, new { @class = "col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 form-horizontal" }))
+    {
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 font-weight-bold">
+                <a class="btn-lg btn-sm btn btn-success offset-md-4 col-md-4 offset-md-4 col-sm-12 col-12" id="newSubCat" style="color:white;margin-bottom:5px;cursor:pointer" onclick="subAdd()">Yeni</a>
+            </div>
+        </div>
+        <div class="row" id="subAdd" style="display:none">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="row hide">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 hide">
+                        @Html.HiddenFor(m => new { m.ProductSubCat.Id }.Id)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                        @Html.Label("Alt Mallar kategoriya", new { @class = "col-form-label" })
+                    </div>
+                    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                        @Html.TextBoxFor(m => new { m.ProductSubCat.SubPrdName }.SubPrdName, new { @class = "form-control col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12" })
+                    </div>
+                </div>
+                <div class="row clearfix" style="height:10px"></div>
+                <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                        @Html.Label("Mallar kategoriya", new { @class = "col-form-label" })
+                    </div>
+                    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                        @Html.DropDownListFor(m => new { m.ProductSubCat.ProductCategoryId }.ProductCategoryId, ViewBag.Category as SelectList, "---Seçin---", new { @class = "col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12 form-control" })
+                    </div>
+                </div>
+                <div class="row clearfix" style="height:10px"></div>
+                <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 font-weight-bold">
+                        @Html.Label("İstehasal edən ölkə", new { @class = "col-form-control" })
+                    </div>
+                    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                        @Html.DropDownListFor(m => new { m.ProductSubCat.MadeInId }.MadeInId, ViewBag.MadeInId as SelectList, "---Seçin---", new { @class = "col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12 form-control" })
+                    </div>
+                </div>
+                <div class="row clearfix" style="height:10px"></div>
+                <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-12 font-weight-bold">
+                        <input type="submit" value="Təsdiqlə" style="margin-bottom:5px" class="btn-lg btn-sm btn btn-success form-control col-sm-12 col-12" />
+                    </div>
+                    <div class="col-xl-10 col-lg-10 col-md-8 col-sm-12 col-12">
+                        <input type="reset" value="Təmizlə" class="btn-lg btn-sm btn btn-danger form-control col-xl-2 col-lg-2 col-md-4 col-sm-12 col-12" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div class="row clearfix" style="height:10px"></div>
+<div class="row align-content-center">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <table class="table border table-hover">
+            <thead class="thead-dark" style="vertical-align:central;text-align:center">
+                <tr>
+                    <th>Malın kategoriyası</th>
+                    <th>Alt kategoriyası</th>
+                    <th>İstehsal edən ölkə</th>
+                    <th>Dəyiş</th>
+                    <th>Sil</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int quantity = 0;
+                    foreach (ProductSubCategory item in Model.SubProductsCategory)
+                    {
+                        quantity++;
+                        bool result = false;
+                        <tr class="font-weight-bold" style="vertical-align:central;text-align:center">
+                            @foreach (ProductCategory prd in Model.ProductsCategorys)
+                            {
+                                if (item.ProductCategoryId == prd.Id)
+                                {
+                                    <td>@prd.ProductName</td>
+                                    result = true;
+                                    break;
+                                }
+                                if (result)
+                                {
+                                    result = false;
+                                    break;
+                                }
+                            }
+                            <td>@item.SubPrdName</td>
+                            @foreach (MadeIn madeIn in Model.MadeInId)
+                            {
+                                if (madeIn.Id == item.MadeInId)
+                                {
+                                    <td>@madeIn.Names</td>                        
+                                    break;
+                                }
+                         
+                            }
+                            <td><a href="/AdminPart/SubProduct/UpdateSubProduct/@item.Id" class="btn-lg btn-sm btn btn-warning col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 form-control">Dəyiş</a></td>
+                            <td><a data-cmd='/AdminPart/SubProduct/DeleteSubProduct/@item.Id' class="btn-lg btn-sm btn btn-danger col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 form-control-sm form-control btnItem" id="deleteBtn" data-toggle="modal" data-target="#myModal" onclick="slctBtn(@quantity)">Sil</a></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
