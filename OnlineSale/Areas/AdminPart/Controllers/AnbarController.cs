@@ -66,7 +66,7 @@ namespace OnlineSale.Areas.AdminPart.Controllers
                 stock.Quantity = Convert.ToInt32(Request.Form["Quantity"].ToString());
                 stock.Endirim = Convert.ToDouble(Request.Form["Endirim"].ToString().Replace('.', ','));
                 int result;
-                if (int.TryParse(Request.Form["AnbarEndirimSelect"], out result))
+                if (int.TryParse(Request.Form["AnbarEndirimSelect"].ToString(), out result))
                     stock.SubEndirimId = result;
                 else
                     stock.SubEndirimId = null;
@@ -79,8 +79,6 @@ namespace OnlineSale.Areas.AdminPart.Controllers
                 {
                     if (stock.Id == 0)
                     {
-                        stock.ProductId = 1;
-                        stock.SubEndirimId = 2;
                         bool insertResult = db.insertStock(stock);
                         if (insertResult)
                         {

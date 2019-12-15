@@ -38,8 +38,8 @@
                             <div class="carousel-inner" role="listbox" style="z-index:0">
                                 <div class="carousel-item active">
                                     <div class="view">
-                                        <img style="height:220px; height:120px;" class="rounded mx-auto d-block w-100 img-fluid" src="~/Content/SlideImage/@Model.SubImageAndDetail.SubSlide.FirstOrDefault().PhotoPath"
-                                             alt="@Model.SubImageAndDetail.SubSlide.FirstOrDefault().ProductName">
+                                        <img class="rounded mx-auto d-block w-100 img-fluid" src="~/Content/SlideImage/@Model.SubImageAndDetail.SubSlide.FirstOrDefault().PhotoPath"
+                                             alt="Şəkil yoxdur">
                                         <div class="mask rgba-black-light"></div>
                                     </div>
                                 </div>
@@ -47,8 +47,8 @@
                                 {
                                     <div class="carousel-item">
                                         <div class="view">
-                                            <img style="height:220px; height:120px;" class="d-block w-100" src="~/Content/SlideImage/@item.PhotoPath"
-                                                 alt="Second slide">
+                                            <img class="d-block w-100" src="~/Content/SlideImage/@item.PhotoPath"
+                                                 alt="Şəkil yoxdur">
                                             <div class="mask rgba-black-strong"></div>
                                         </div>
                                     </div>
@@ -112,6 +112,7 @@
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="jumbotron jumbotron-fluid">
                         <h2 class="font-weight-bold">@ViewBag.Price<br />&#8380</h2>
+                        <h2><del>@ViewBag.OldPrice</del><br />&#8380</h2>
                     </div>
                 </div>
             </div>
