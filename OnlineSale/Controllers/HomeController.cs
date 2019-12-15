@@ -110,7 +110,11 @@ namespace OnlineSale.Controllers
                     Stock st = db.getStock(id);
                     ViewBag.ProductName = st.ProductName;
                     ViewBag.ProductCode = st.ProductCode;
-                    ViewBag.Price = st.Price;
+                    double priceNew=0;
+                    if (st.SubEndirimId==1) { priceNew = st.Price - ((st.Endirim * st.Price) / 100); } else
+                    { priceNew = st.Price - st.Endirim; }
+                    ViewBag.Price = priceNew;
+                    ViewBag.OldPrice = st.Price;
                     return View(homeView);
                 }
                 else
